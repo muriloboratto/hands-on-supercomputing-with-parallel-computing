@@ -15,9 +15,3 @@ Hands-On:
 *  7: Accelerating-Applications-with-CUDA-C/C++/Python
 *  8: Collective-Communication-Operations-with-NCCL-on-Multi-GPU-Systems
 *  9: Samples-Codes-using-CUDA-AWARE-MPI-on-Multi-GPU
-
-
-## More resources
-
-* Articles, presentations, posters and much more concerning parallel computing is available
-  [here](http://www.muriloboratto.docentes.uneb.br). 
