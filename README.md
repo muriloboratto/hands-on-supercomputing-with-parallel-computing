@@ -4,14 +4,12 @@ This repository is a hands-on introducing you to parallel computing with C/C++, 
 
 Along with the repository, exercises and examples are provided to reinforce how to use parallel computing. Hands-On exercises and examples will vary in difficulty from simple parallel usage concepts to more advanced techniques.
 
-Hands-On:
-
-*  1: Portable Parallel Programming with OpenMP
-*  2: Parallelization with OpenMP
-*  3: Portable Parallel Programming with MPI
-*  4: Matrix-Computation-with-MPI
-*  5: Basic-Hybrid-Application-MPI+OpenMP
-*  6: Portable-Parallel-Programming-with-CUDA
-*  7: Accelerating-Applications-with-CUDA-C/C++/Python
-*  8: Collective-Communication-Operations-with-NCCL-on-Multi-GPU-Systems
-*  9: Samples-Codes-using-CUDA-AWARE-MPI-on-Multi-GPU
+*  Hands-On 1: Portable Parallel Programming with OpenMP
+*  Hands-On 2: Parallelization with OpenMP
+*  Hands-On 3: Portable Parallel Programming with MPI
+*  Hands-On 4: Matrix Computation with MPI
+*  Hands-On 5: Basic Hybrid Application MPI+OpenMP
+*  Hands-On 6: Portable Parallel Programming with CUDA
+*  Hands-On 7: Accelerating Applications with CUDA C/C++/Python
+*  Hands-On 8: Collective Communication Operations with NCCL on Multi GPU Systems
+*  Hands-On 9: Samples Codes using CUDA AWARE MPI on Multi-GPU
