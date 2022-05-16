@@ -1,11 +1,12 @@
 /*
 File:           asyncTaskOpenMPOptimization.c
+Version:        Solution
 Purpose:        Implement the asynchronous tasks using API OpenMP with Algorithm Optimization
 Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc asyncTaskOpenMPOptimization.c -o asyncTaskOpenMPOptimization -fopenmp
 HowToExecute:   ./asyncTaskOpenMPOptimization    <size>   <blockSize>
-Example:        ./asyncTaskOpenMPOptimization      10           2
+                ./asyncTaskOpenMPOptimization      10           2
 */
 
 #include <stdio.h>

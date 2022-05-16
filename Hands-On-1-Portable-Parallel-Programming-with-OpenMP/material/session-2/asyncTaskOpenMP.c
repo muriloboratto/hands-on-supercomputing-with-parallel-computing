@@ -51,6 +51,7 @@ int main(int argc, char **argv)
         for (int column = block_size; column < 2 * block_size; column++)
           matrix[row][column] *= k2;
     }
+  
   }
 
   for (int i = 0; i < n; i++)

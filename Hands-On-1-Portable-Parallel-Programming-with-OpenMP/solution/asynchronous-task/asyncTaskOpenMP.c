@@ -1,11 +1,12 @@
 /*
 File:           asyncTaskOpenMP.c
+Version:        Solution
 Purpose:        Implement the asynchronous tasks using API OpenMP
 Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc asyncTaskOpenMP.c -o asyncTaskOpenMP -fopenmp
 HowToExecute:   ./asyncTaskOpenMP    <size>   <blockSize>
-Example:        ./asyncTaskOpenMP      10           2
+                ./asyncTaskOpenMP      10           2
 */
 
 #include <stdio.h>
@@ -70,7 +71,7 @@ int main (int argc, char **argv){
     if (id == 4)
     {
       for (int row = 0; row < size; row++)
-        for (int col = 4 * blockSize; col < 5 * block_size; col++)
+        for (int col = 4 * blockSize; col < 5 * blockSize; col++)
           matrix[row][col] *= k[id];
     }
     

@@ -1,12 +1,12 @@
 /*
-File:           hands-on-2/session-1/integral.c
-Version:        1
+File:           integral.c
+Last changed:   20220303 11:35:00 
 Purpose:        Parallelize integral calculation using openMP
-Author:         Murilo Boratto - muriloboratto@uneb.br
+Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc integral.c -o integral -fopenmp -lm
 HowToExecute:   OMP_NUM_THREADS=${num_threads} ./integral ${variant} ${steps}
-Example:        OMP_NUM_THREADS=4 ./integral 1 2000
+Example:        OMP_NUM_THREADS=4              ./integral     1        2000
 */
 
 #include <stdio.h>
@@ -17,7 +17,7 @@ Example:        OMP_NUM_THREADS=4 ./integral 1 2000
 /* f(x) function from which the integral will be calculated. */
 double f(double x)
 {
-   return 100 * x + sin(2 * x * M_PI);
+ return 100 * x + sin(2 * x * M_PI);
 }
 
 /* Calculates the integral of the function betweens point a and b. Variant 1. */

@@ -1,13 +1,14 @@
 /*
-File:           hands-on-2/session-1/integral.c
-Version:        1
+File:           integral.c
+Version:        Solution
 Purpose:        Parallelize integral calculation using openMP
-Author:         Murilo Boratto - muriloboratto@uneb.br
+Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc integral.c -o integral -fopenmp -lm
 HowToExecute:   OMP_NUM_THREADS=${num_threads} ./integral ${variant} ${steps}
-Example:        OMP_NUM_THREADS=4 ./integral 1 2000
+Example:        OMP_NUM_THREADS=4              ./integral     1        2000
 */
+
 
 #include <stdio.h>
 #include <stdlib.h>
