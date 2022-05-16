@@ -30,7 +30,7 @@ EOF
 
 printf 'Compiling and setting permissions\n\n'
 gcc count_primes.c -o count_primes -fopenmp -lm -O3
-chmod +x count_primnes
+chmod +x count_primes
 
 printf 'Running tests\n\n'
 
