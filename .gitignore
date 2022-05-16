@@ -1,4 +1,5 @@
 # Ignore the node_modules directory
+solution/
 
 # Ignore Logs
 logs
