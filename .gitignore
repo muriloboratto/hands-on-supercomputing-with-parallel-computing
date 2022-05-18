@@ -1,5 +1,5 @@
 # Ignore the node_modules directory
-Hands-On-1-Portable-Parallel-Programming-with-OpenMP/solution/
+#solution/
 
 # Ignore Logs
 logs
