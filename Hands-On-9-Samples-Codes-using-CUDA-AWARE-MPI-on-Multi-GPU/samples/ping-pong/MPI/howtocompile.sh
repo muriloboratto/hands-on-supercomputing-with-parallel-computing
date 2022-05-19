@@ -15,7 +15,7 @@ nowherman()
 
 ogbon()
 {
- module load openmpi/4.1.1-cuda 
+ module load openmpi/4.1.1-cuda-11.6-ofed-5.4
  mpicc ping-pong-MPI.c -o ping-pong-MPI
 }
 

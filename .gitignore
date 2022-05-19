@@ -6,7 +6,6 @@ logs
 *.log
 
 # Ignore the build directory
-/solution
 
 # The file containing environment variables 
 .env
