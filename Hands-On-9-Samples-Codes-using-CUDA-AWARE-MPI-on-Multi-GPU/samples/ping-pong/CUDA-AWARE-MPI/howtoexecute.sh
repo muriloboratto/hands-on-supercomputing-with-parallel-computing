@@ -19,7 +19,7 @@ ogbon()
 
 nvlink()
 {
- module load openmpi/4.1.1-cuda
+ module load openmpi/4.1.1-cuda-11.6-ofed-5.4
  mpirun -np 2 -x UCX_MEMTYPE_CACHE=n  -mca pml ucx -mca btl ^vader,tcp,openib,smcuda -x UCX_NET_DEVICES=mlx5_0:1  ./ping-pong-CUDA-AWARE-MPI
 }
 
