@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-#define SIZE 12
+#define SIZE 10
 
 int main (int argc, char **argv){
 
@@ -21,7 +21,7 @@ int main (int argc, char **argv){
     array[i] = i + 1;
   
   for(i = 0; i < SIZE; i++)
-    printf("array[%d] = %d\n", x, array[x]);
+    printf("array[%d] = %d\n", i, array[i]);
 
   for(i = 0; i < SIZE; i++) {
     sum = sum + array[i];

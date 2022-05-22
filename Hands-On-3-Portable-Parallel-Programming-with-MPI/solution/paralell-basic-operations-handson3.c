@@ -34,7 +34,7 @@ int main (int argc, char **argv){
 
 			for(i = 0; i < SIZE; i++){
 			  array[i] = i + 1;
-			  printf("%d\t", i, array[i]);
+			  printf("array[%d] = %d\n", i, array[i]);
 			}
 			printf("\n");
 
@@ -78,5 +78,6 @@ int main (int argc, char **argv){
 			MPI_Send(&operationsRec, 1, MPI_CHAR, 0, tag, MPI_COMM_WORLD);
 	}
 
+    MPI_Finalize();
 	return 0;
 }
