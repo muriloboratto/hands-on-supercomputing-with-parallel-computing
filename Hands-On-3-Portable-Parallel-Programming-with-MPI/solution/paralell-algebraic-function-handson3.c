@@ -54,8 +54,9 @@ int main (int argc, char **argv){
 			MPI_Recv(&variableXRec, 1, MPI_DOUBLE, 0, tag, MPI_COMM_WORLD, &status);
 
 			value = coefficient;
-
-			for(int i = 0; i < id; i++) 
+			
+			int i;
+			for(i = 0; i < id; i++) 
 				value *= variableXRec;
 				
 			MPI_Send(&value,1,MPI_DOUBLE,0,tag,MPI_COMM_WORLD); //Return the result
