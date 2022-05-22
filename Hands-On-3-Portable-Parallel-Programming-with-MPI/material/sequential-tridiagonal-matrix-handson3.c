@@ -13,10 +13,10 @@
 #define ORDER 4
 
 void printMatrix (int m[][ORDER]) {
-	
-	for(int i = 0; i < ORDER; i++) {
+	int i, j;
+	for(i = 0; i < ORDER; i++) {
 		printf ("| ");
-		for (int j = 0; j < ORDER; j++) {
+		for (j = 0; j < ORDER; j++) {
 			printf ("%3d ", m[i][j]);
 		}
 		printf ("|\n");
@@ -28,9 +28,10 @@ int main (int argc, char **argv){
 
 	int k[3] = {100, 200, 300};
 	int matrix[ORDER][ORDER];
+	int i, j;
 	
-	for(int i = 0; i < ORDER; i++) {
-	  for(int j = 0; j < ORDER; j++) {
+	for(i = 0; i < ORDER; i++) {
+	  for(j = 0; j < ORDER; j++) {
 			if( i == j )
 				matrix[i][j] = i + j +1;
 			else if(i == (j + 1)) {
@@ -43,7 +44,7 @@ int main (int argc, char **argv){
 			
 	printMatrix(matrix);
 			
-	for(int i = 0; i < ORDER; i++){ 
+	for(i = 0; i < ORDER; i++){ 
        matrix[i][i]     += k[0];  //main diagonal
 	   matrix[i + 1][i] += k[1];  //subdiagonal
 	   matrix[i][i + 1] += k[2];  //superdiagonal 
