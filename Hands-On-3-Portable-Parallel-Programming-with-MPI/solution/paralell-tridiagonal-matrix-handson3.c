@@ -31,7 +31,7 @@ void printMatrix (int m[][ORDER]) {
 int main (int argc, char **argv){
 
 	int numberOfProcessors, id, to, tag=1000;
-	int constants[] = {5, 10, 15};
+	int constants[] = {100, 200, 300};
 	int i, j;
 	int origin[ORDER][ORDER];
 	int matrix[ORDER][ORDER];
@@ -47,9 +47,9 @@ int main (int argc, char **argv){
 			for (i = 0; i < ORDER; i++) {
 				for (j = 0; j < ORDER; j++) {
 					if (i == j)
-						origin[i][j] = (rand() % 100) + 1;
+						origin[i][j] = i + j + 1;
 					else if (i == (j + 1)) {
-						origin[i][j] = (rand() % 100) + 1;
+						origin[i][j] = i + j + 1;
 						origin[j][i] = origin[i][j];
 					}
 					else
@@ -57,7 +57,7 @@ int main (int argc, char **argv){
 				}
 			}
 			
-			printMatrix(v);
+			printMatrix(origin);
 			
 			for (to = 1; to < numberOfProcessors; to++) {
 				MPI_Send(&origin, ORDER * ORDER, MPI_INT, to, tag, MPI_COMM_WORLD);				
@@ -70,16 +70,16 @@ int main (int argc, char **argv){
 			MPI_Recv(&matrix, ORDER * ORDER, MPI_INT, 0, tag, MPI_COMM_WORLD, &status);
 			if (id == 1) { // main diagonal
 				for (i = 0; i < ORDER; i++) 
-					matrix[i][i] += constants[id-1];
+					matrix[i][i] += constants[0];
 			}
 			else if (id == 2) { //superdiagonal
 				for (i = 0; (i + 1) < ORDER; i++) 
-					matrix[i][i + 1] += constants[id-1];
+					matrix[i][i + 1] += constants[2];
 				
 			}
 			else { //subdiagonal
 				for (i = 0; (i + 1) < ORDER; i++) 
-					matrix[i+1][i] += constants[id-1];
+					matrix[i+1][i] += constants[1];
 				
 			}
 						
@@ -87,5 +87,6 @@ int main (int argc, char **argv){
 
 	}
 	
+	MPI_Finalize();
 	return 0;
 }
