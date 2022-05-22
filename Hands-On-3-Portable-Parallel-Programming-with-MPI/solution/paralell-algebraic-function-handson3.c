@@ -22,7 +22,7 @@ int main (int argc, char **argv){
 	int numberOfProcessors, id, to, tag = 1000;		
 	
 	MPI_Init(&argc,&argv);
-	MPI_Comm_size(MPI_COMM_WORLD,&numeroProcessadores);
+	MPI_Comm_size(MPI_COMM_WORLD,&numberOfProcessors);
 	MPI_Comm_rank(MPI_COMM_WORLD, &id);
 	MPI_Status status;
 	
@@ -30,21 +30,23 @@ int main (int argc, char **argv){
 	{	
 		case 0: //master			
 			
-			parts[0]  = atoi(argv[1]); //a
-            parts[1]  = atoi(argv[2]); //b
-            parts[2]  = atoi(argv[3]); //c
-            variableX = atoi(argv[4]); //x
+			parts[3]  = atoi(argv[1]); //a
+            parts[2]  = atoi(argv[2]); //b
+            parts[1]  = atoi(argv[3]); //c
+            parts[0]  = atoi(argv[4]); //d
+            variableX = atoi(argv[5]); //x
 
 			for(to = 1; to < numberOfProcessors; to++) { //coefficients
-				MPI_Send(&parts[2-(to-1)], 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD);
-				MPI_Send(&parts, 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD);
+				MPI_Send(&parts[to], 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD);
+				MPI_Send(&variableX, 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD);
 			}
 			
 			for(to = 1; to < numberOfProcessors; to++) {
 				MPI_Recv(&result, 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD, &status);
 				fx += result;
 			}			
-			printf ("f(%f) = %f\n", parts, fx);			
+			fx += parts[0];
+			printf ("f(%f) = %f\n", variableX, fx);
 			break;
 
 		default: //workers
@@ -59,6 +61,8 @@ int main (int argc, char **argv){
 			MPI_Send(&value,1,MPI_DOUBLE,0,tag,MPI_COMM_WORLD); //Return the result
 
 	}
+
+	MPI_Finalize();
 	
 	return 0;
 }
