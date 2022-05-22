@@ -15,17 +15,18 @@ Example:        mpirun -np 4 ./lu_mpi 8
 #include <mpi.h>
 
 #define MANAGER_RANK 0
-#define VERBOSE 0
+#define VERBOSE 1
 
 int mpi_rank, mpi_size;
 
 /* generates a A*X=B problem in which all values for X are 1 */
 void generate_ab_problem(int size, double **a_matrix, double *b_array)
 {
-    for (int r = 0; r < size; r++)
+    int r, c;
+    for (r = 0; r < size; r++)
     {
         int sum = 0;
-        for (int c = 0; c < size; c++)
+        for (c = 0; c < size; c++)
         {
             int coefficient = -5 + (rand() % 11);
             sum += coefficient;
@@ -39,8 +40,9 @@ double **alloc_matrix(int size)
 {
     double **matrix = (double **)calloc(size, sizeof(double *));
     double *matrix_values = (double *)calloc(size * size, sizeof(double));
+    int i;
 
-    for (int i = 0; i < size; i++)
+    for (i = 0; i < size; i++)
         matrix[i] = (matrix_values + size * i);
 
     return matrix;
@@ -53,9 +55,10 @@ double *alloc_array(int size)
 
 void print_matrix(double **matrix, int size)
 {
-    for (int r = 0; r < size; r++)
+    int r, c;
+    for (r = 0; r < size; r++)
     {
-        for (int c = 0; c < size; c++)
+        for (c = 0; c < size; c++)
             printf("%.2f\t", matrix[r][c]);
         printf("\n");
     }
@@ -63,7 +66,8 @@ void print_matrix(double **matrix, int size)
 
 void print_array(double *array, int size)
 {
-    for (int i = 0; i < size; i++)
+    int i;
+    for (i = 0; i < size; i++)
         printf("%.2f\t", array[i]);
     printf("\n");
 }
@@ -71,16 +75,20 @@ void print_array(double *array, int size)
 /* performs LU decomposition in place */
 void lu_decompose(double **matrix, int size)
 {
-    for (int c = 0; c < size; c++)
+    int r, c;
+
+    for (c = 0; c < size; c++)
     {
-        for (int r = c + 1; r < size; r++)
+        for (r = c + 1; r < size; r++)
         {
             int iteration_owner = r % mpi_size;
             if (mpi_rank == iteration_owner)
             {
                 double factor = matrix[r][c] / matrix[c][c];
                 matrix[r][c] = factor;
-                for (int cc = c + 1; cc < size; cc++)
+
+                int cc;
+                for (cc = c + 1; cc < size; cc++)
                     matrix[r][cc] -= matrix[c][cc] * factor;
             }
 
@@ -92,10 +100,12 @@ void lu_decompose(double **matrix, int size)
 /* solves L*Y=B for Y using progressive elimination */
 void solve_lyb(double **l_matrix, int size, double *y_array, double *b_array)
 {
+    int r, c;
+
     y_array[0] = b_array[0];
-    for (int r = 1; r < size; r++)
+    for (r = 1; r < size; r++)
     {
-        for (int c = mpi_rank; c < r; c += mpi_size)
+        for (c = mpi_rank; c < r; c += mpi_size)
             y_array[r] -= l_matrix[r][c] * y_array[c];
 
         MPI_Allreduce(&y_array[r], &y_array[r], 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
@@ -107,10 +117,12 @@ void solve_lyb(double **l_matrix, int size, double *y_array, double *b_array)
 /* solves the U*X=Y for X using regressive substitution */
 void solve_uxy(double **u_matrix, int size, double *x_array, double *y_array)
 {
+    int r, c;
+
     x_array[size - 1] = y_array[size - 1] / u_matrix[size - 1][size - 1];
-    for (int r = size - 2; r >= 0; r--)
+    for (r = size - 2; r >= 0; r--)
     {
-        for (int c = size - 1 - mpi_rank; c > r; c -= mpi_size)
+        for (c = size - 1 - mpi_rank; c > r; c -= mpi_size)
             x_array[r] -= u_matrix[r][c] * x_array[c];
 
         MPI_Allreduce(&x_array[r], &x_array[r], 1, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
@@ -150,6 +162,14 @@ int main(int argc, char **argv)
 #if VERBOSE
     if (mpi_rank == MANAGER_RANK)
     {
+        printf("A\n");
+        print_matrix(A, size);
+        printf("B\n");
+        print_array(B, size);
+        printf("L\\U\n");
+        print_matrix(A, size);
+        printf("Y\n");
+        print_array(Y, size);
         printf("X\n");
         print_array(X, size);
     }

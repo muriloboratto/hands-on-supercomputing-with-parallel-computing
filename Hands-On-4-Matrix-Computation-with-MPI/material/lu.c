@@ -16,10 +16,11 @@ Example:        ./lu 8
 /* generates a A*X=B problem in which all value for X are 1 */
 void generate_ab_problem(int size, double **a_matrix, double *b_array)
 {
-    for (int r = 0; r < size; r++)
+    int r, c;
+    for (r = 0; r < size; r++)
     {
         int sum = 0;
-        for (int c = 0; c < size; c++)
+        for (c = 0; c < size; c++)
         {
             int coefficient = -5 + (rand() % 11);
             sum += coefficient;
@@ -33,8 +34,9 @@ double **alloc_matrix(int size)
 {
     double **matrix = (double **)calloc(size, sizeof(double *));
     double *matrix_values = (double *)calloc(size * size, sizeof(double));
+    int i;
 
-    for (int i = 0; i < size; i++)
+    for (i = 0; i < size; i++)
         matrix[i] = (matrix_values + size * i);
 
     return matrix;
@@ -47,9 +49,10 @@ double *alloc_array(int size)
 
 void print_matrix(double **matrix, int size)
 {
-    for (int r = 0; r < size; r++)
+    int r, c;
+    for (r = 0; r < size; r++)
     {
-        for (int c = 0; c < size; c++)
+        for (c = 0; c < size; c++)
             printf("%.2f\t", matrix[r][c]);
         printf("\n");
     }
@@ -57,21 +60,26 @@ void print_matrix(double **matrix, int size)
 
 void print_array(double *array, int size)
 {
-    for (int x = 0; x < size; x++)
-        printf("%.2f\t", array[x]);
+    int i;
+    for (i = 0; i < size; i++)
+        printf("%.2f\t", array[i]);
     printf("\n");
 }
 
 /* performs LU decomposition in place */
 void lu_decompose(double **matrix, int size)
 {
-    for (int c = 0; c < size; c++)
+    int r, c;
+
+    for (c = 0; c < size; c++)
     {
-        for (int r = c + 1; r < size; r++)
+        for (r = c + 1; r < size; r++)
         {
             double factor = matrix[r][c] / matrix[c][c];
             matrix[r][c] = factor;
-            for (int cc = c + 1; cc < size; cc++)
+
+            int cc;
+            for (cc = c + 1; cc < size; cc++)
                 matrix[r][cc] -= matrix[c][cc] * factor;
         }
     }
@@ -80,11 +88,13 @@ void lu_decompose(double **matrix, int size)
 /* solves L*Y=B for Y using progressive elimination */
 void solve_lyb(double **l_matrix, int size, double *y_array, double *b_array)
 {
+    int r, c;
+
     y_array[0] = b_array[0];
-    for (int r = 1; r < size; r++)
+    for (r = 1; r < size; r++)
     {
         y_array[r] = b_array[r];
-        for (int c = 0; c < r; c++)
+        for (c = 0; c < r; c++)
             y_array[r] -= l_matrix[r][c] * y_array[c];
     }
 }
@@ -92,10 +102,12 @@ void solve_lyb(double **l_matrix, int size, double *y_array, double *b_array)
 /* solves the U*X=Y for X using regressive substitution */
 void solve_uxy(double **u_matrix, int size, double *x_array, double *y_array)
 {
+    int r, c;
+
     x_array[size - 1] = y_array[size - 1] / u_matrix[size - 1][size - 1];
-    for (int r = size - 2; r >= 0; r--)
+    for (r = size - 2; r >= 0; r--)
     {
-        for (int c = size - 1; c > r; c--)
+        for (c = size - 1; c > r; c--)
             x_array[r] -= u_matrix[r][c] * x_array[c];
 
         x_array[r] += y_array[r];
