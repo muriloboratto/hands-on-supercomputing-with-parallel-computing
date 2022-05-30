@@ -3,8 +3,9 @@ File:           hello-openmp+mpi.c
 Purpose:        Hello World using OpenMP+MPI
 Author :        Murilo Boratto <muriloboratto 'at' fieb.org.br>
 Usage:
-HowToCompile:   gcc hello-openmp+mpi.c -o hello-openmp+mpi -fopenmp
-HowToExecute:   ./hello-openmp+mpi 
+HowToCompile:   mpicc hello-mpi+openmp.c -o hello-mpi+openmp -fopenmp
+HowToExecute:   mpirun -np <numberOfProcesses> ./hello-mpi+openmp
+                mpirun -np 4 ./hello-mpi+openmp
 */
 
 #include <mpi.h>
