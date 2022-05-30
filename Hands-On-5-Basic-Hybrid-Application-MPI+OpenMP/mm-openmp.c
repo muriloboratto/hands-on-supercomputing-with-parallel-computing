@@ -104,7 +104,7 @@ int main(int argc, char *argv[]) {
     if (tiempo == 0.) {
       printf("[Error]\n");
     } else {
-      printf("\n Size %ld\n    Seconds: %.6lf\n", t, tiempo);
+      printf("(%d) Threads %d, Time %.6lf\n\n",t, omp_get_num_threads(), tiempo);    
 #ifdef DEBUG
       escribir(c, t);
 #endif    

@@ -156,7 +156,7 @@ int main(int argc, char *argv[]) {
   MPI_Barrier(MPI_COMM_WORLD);
   tf = MPI_Wtime();
   if (nodo == 0) {
-    printf("Process %d, %s, Time %.6lf\n", nodo, nombre_procesador, tf - ti);
+    printf("(%d) Process %d, %s, Time %.6lf\n", N, np, nombre_procesador, tf - ti);
   }
   
   free(a);

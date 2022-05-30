@@ -4,8 +4,8 @@ Purpose:        Parallelize matrix multiplication using OpenMP+MPI
 Authors:        Francisco Almeida, Domingo Giménez, José Miguel Mantas, Antonio M. Vidal
 Usage:
 HowToCompile:   mpicc mm-mpi+openmp.c -o mm-mpi+openmp -fopenmp
-HowToExecute:   ./mm-mpi+openmp <size> <threads> 
-Example:        ./mm-mpi+openmp  100       16     
+HowToExecute:   mpirun -np <numberOfProcesses> ./mm-mpi+openmp <size> <threads> 
+Example:        mpirun -np         4           ./mm-mpi+openmp  100       16     
 
 Comments:
                 ◆ Spanish code comments;          
@@ -25,10 +25,6 @@ void mm(double *a, int fa,int ca,int lda,double *b,int fb,int cb,int ldb,double 
 
 #pragma omp parallel 
 {
-#pragma omp critical
-{
-  printf("Process %d, node %s, Threads number %d\n",nodo,maquina,omp_get_thread_num());
-}
 #pragma omp for private(i,j,k,s) schedule(static)
   for (i = 0; i < fa; i++) 
   {
@@ -177,7 +173,7 @@ int main(int argc,char *argv[]) {
   tf=MPI_Wtime();
   if(nodo==0)
   {
-    printf("Process %d, %s, Time %.6lf\n\n",nodo,nombre_procesador,tf-ti);
+    printf("(%d) Threads %d, Process %d, %s, Time %.6lf\n\n",N, NUMTHREADS, np, nombre_procesador,tf-ti);
     for(i=1;i<np;i++)
     {
       MPI_Recv(&c[i*ldc*N/np],fcl*cc,MPI_DOUBLE,i,30,MPI_COMM_WORLD,&estado);
