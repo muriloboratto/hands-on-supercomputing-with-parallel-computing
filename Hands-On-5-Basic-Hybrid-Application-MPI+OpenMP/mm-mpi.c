@@ -157,7 +157,6 @@ int main(int argc, char *argv[]) {
   tf = MPI_Wtime();
   if (nodo == 0) {
     printf("Process %d, %s, Time %.6lf\n", nodo, nombre_procesador, tf - ti);
-    comparar(c, fc, cc, ldc, c0, fc, cc, ldc);
   }
   
   free(a);

@@ -1,11 +1,11 @@
 /*
-File:           mm-openmp+mpi.c
+File:           mm-mpi+openmp.c
 Purpose:        Parallelize matrix multiplication using OpenMP+MPI
 Authors:        Francisco Almeida, Domingo Giménez, José Miguel Mantas, Antonio M. Vidal
 Usage:
-HowToCompile:   gcc mm-openmp+mpi.c -o mm-openmp+mpi -fopenmp
-HowToExecute:   ./mm-openmp+mpi <size> <threads> 
-Example:        ./mm-openmp+mpi  100       16     
+HowToCompile:   mpicc mm-mpi+openmp.c -o mm-mpi+openmp -fopenmp
+HowToExecute:   ./mm-mpi+openmp <size> <threads> 
+Example:        ./mm-mpi+openmp  100       16     
 
 Comments:
                 ◆ Spanish code comments;          
@@ -182,7 +182,6 @@ int main(int argc,char *argv[]) {
     {
       MPI_Recv(&c[i*ldc*N/np],fcl*cc,MPI_DOUBLE,i,30,MPI_COMM_WORLD,&estado);
     }
-    comparar(c,fc,cc,ldc,c0,fc,cc,ldc);
   }
   else
   {

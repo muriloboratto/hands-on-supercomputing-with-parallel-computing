@@ -1,5 +1,5 @@
 /*
-File:           mm-mpi.c
+File:           mm-openmp.c
 Purpose:        Parallelize matrix multiplication using OpenMP
 Authors:        Francisco Almeida, Domingo Giménez, José Miguel Mantas, Antonio M. Vidal
                 'Introducción a la programación paralela,
