@@ -30,25 +30,29 @@ void printMatrix(int *matrix, int size)
   printf("\n");
 }
 
-int main(int argc, char **argv)
+int main (int argc, char **argv)
 {
-  int size = atoi(argv[1]);
 
-  int *A = (int *)malloc(sizeof(int) * size * size);
-  int *B = (int *)malloc(sizeof(int) * size * size);
-  int *C = (int *)malloc(sizeof(int) * size * size);
+ int size = atoi(argv[1]);  
+ int i, j, k;
 
-  initializeMatrix(A, size);
-  initializeMatrix(B, size);
+ int  *A = (int *) malloc (sizeof(int)*size*size);
+ int  *B = (int *) malloc (sizeof(int)*size*size);
+ int  *C = (int *) malloc (sizeof(int)*size*size);
 
-  for (int i = 0; i < size; i++)
-    for (int j = 0; j < size; j++)
-      for (int k = 0; k < size; k++)
-        C[i * size + j] += A[i * size + k] * B[k * size + j];
+ initializeMatrix(A, size);
+ initializeMatrix(B, size);
 
-  printMatrix(A, size);
-  printMatrix(B, size);
-  printMatrix(C, size);
+ for(i = 0; i < size; i++)
+  for(j = 0; j < size; j++)
+    for(k = 0; k < size; k++)
+       C[i * size + j] += A[i * size + k] * B[k * size + j];
 
-  return 0;
+ printMatrix(A,size);
+ printMatrix(B,size);
+ printMatrix(C,size);
+
+ return 0;
+
 }
+

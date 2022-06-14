@@ -9,7 +9,6 @@
 */
 
 #include <stdio.h>
-
 #define ORDER 4
 
 void printMatrix (int m[][ORDER]) {
@@ -46,8 +45,8 @@ int main (int argc, char **argv){
 
   for(i = 0; i < ORDER; i++){
        matrix[i][i]     += k[0];  //main diagonal
-     matrix[i + 1][i] += k[1];  //subdiagonal
-     matrix[i][i + 1] += k[2];  //superdiagonal
+     matrix[i + 1][i] += k[1];    //subdiagonal
+     matrix[i][i + 1] += k[2];    //superdiagonal
   }
 
   printMatrix(matrix);

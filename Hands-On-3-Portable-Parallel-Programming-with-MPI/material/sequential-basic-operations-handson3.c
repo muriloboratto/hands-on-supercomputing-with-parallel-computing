@@ -9,8 +9,7 @@
 */
 
 #include <stdio.h>
-
-#define SIZE 10
+#define SIZE 12
 
 int main (int argc, char **argv){
 
