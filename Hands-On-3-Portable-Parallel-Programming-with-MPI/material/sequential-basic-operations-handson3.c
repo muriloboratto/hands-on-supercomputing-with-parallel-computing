@@ -3,9 +3,9 @@
 @(#)Last changed:   $Date: 20220407 11:35:00 $
 @(#)Purpose:        Basic operations in a sequential algorithm in C
 @(#)Author:         muriloboratto 'at' fieb.org.br
-@(#)Usage:         
+@(#)Usage:
 @(*) Hotocompile:   gcc sequential-basic-operations-handson3.c -o obj
-@(*) Hotoexecute:   ./obj 
+@(*) Hotoexecute:   ./obj
 */
 
 #include <stdio.h>
@@ -19,7 +19,7 @@ int main (int argc, char **argv){
 
   for(i = 0; i < SIZE; i++)
     array[i] = i + 1;
-  
+
   for(i = 0; i < SIZE; i++)
     printf("array[%d] = %d\n", i, array[i]);
 
