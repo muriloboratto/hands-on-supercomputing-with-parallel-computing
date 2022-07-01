@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 
   omp_set_num_threads(5);
 
-  #pragma omp parallel
+  #pragma omp parallel private(row, column)
   {
     int id = omp_get_thread_num();
 
