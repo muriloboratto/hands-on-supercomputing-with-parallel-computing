@@ -23,6 +23,7 @@ EOF
 }
 
 printf 'Compiling and setting permissions\n\n'
+module load gcc/11.1.0
 gcc big_prime.c -o big_prime -fopenmp -lm -O3
 chmod +x big_prime
 

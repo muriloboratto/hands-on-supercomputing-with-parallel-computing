@@ -30,6 +30,7 @@ EOF
 }
 
 printf 'Compiling and setting permissions\n\n'
+module load gcc/11.1.0
 gcc integral.c -o integral -fopenmp -lm -O3
 chmod +x integral
 

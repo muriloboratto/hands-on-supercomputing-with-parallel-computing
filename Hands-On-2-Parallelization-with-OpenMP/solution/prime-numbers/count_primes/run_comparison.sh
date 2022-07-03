@@ -29,6 +29,7 @@ EOF
 }
 
 printf 'Compiling and setting permissions\n\n'
+module load gcc/11.1.0
 gcc count_primes.c -o count_primes -fopenmp -lm -O3
 chmod +x count_primes
 

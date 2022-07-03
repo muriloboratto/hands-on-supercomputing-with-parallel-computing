@@ -22,6 +22,7 @@ plot "result" using 1:3 title "lenna 512x512" with linespoints
 EOF
 }
 printf 'Compiling and setting permissions\n\n'
+module load gcc/11.1.0
 gcc image.c -o image -fopenmp -O3
 chmod +x image
 
