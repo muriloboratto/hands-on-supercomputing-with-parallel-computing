@@ -87,6 +87,7 @@ EOF
 # 0. COMPILATION + PERMISSIONS  TO EXECUTE     #
 ################################################
 
+module load gcc/11.1.0
 gcc mm.c -o mm -fopenmp -O3
 chmod +x mm
 
