@@ -59,22 +59,22 @@ int main(int argc, char **argv){
     if(id == 2)
     {
       for(row = 0; row < size; row++)
-        for(col = 2 * blockSize; col < 3 * blockSize; col++)
-          matrix[row][col] *= k[id];
+        for(column = 2 * blockSize; column < 3 * blockSize; column++)
+          matrix[row][column] *= k[id];
     }
     
     if(id == 3)
     {
       for(row = 0; row < size; row++)
-        for(col = 3 * blockSize; col < 4 * blockSize; col++)
-          matrix[row][col] *= k[id];
+        for(column = 3 * blockSize; column < 4 * blockSize; column++)
+          matrix[row][column] *= k[id];
     }
 
     if(id == 4)
     {
       for(row = 0; row < size; row++)
-        for(col = 4 * blockSize; col < 5 * blockSize; col++)
-          matrix[row][col] *= k[id];
+        for(column = 4 * blockSize; column < 5 * blockSize; column++)
+          matrix[row][column] *= k[id];
     }
     
   }
