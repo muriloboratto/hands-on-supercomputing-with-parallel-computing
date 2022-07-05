@@ -142,7 +142,7 @@ int apply_filter(int steps, int radius, struct pixel **src, struct pixel **dst, 
 
   for (s = 0; s < steps; s++)
   {
-#pragma omp parallel for private(i, j, k, l, s, total, filter_factor, result)
+    #pragma omp parallel for private(i, j, k, l, s, total, filter_factor, result)
     for (i = 0; i < width; i++)
     {
       for (j = 0; j < height; j++)
