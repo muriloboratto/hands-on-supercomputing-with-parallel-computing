@@ -4,8 +4,8 @@ Date:           20220419
 Purpose:        Parallelize the tridiagonal matrix using MPI
 Author:         Murilo Boratto < muriloboratto 'at' fieb.org.br >
 Usage:
-HowToCompile:   mpicc paralell-algebraic-function-handson3.c -o function -fopenmp
-HowToExecute:   mpirun -np 4 ./function
+HowToCompile:   mpicc paralell-algebraic-function-handson3.c -o function
+HowToExecute:   mpirun -np 4 ./function 1 2 3 4 1000
 
 */
 
@@ -18,7 +18,6 @@ HowToExecute:   mpirun -np 4 ./function
 int main (int argc, char **argv){
 
 	double variableX, variableXRec, parts[4], fx=0, coefficient, result, value=0;
-	char op[] = {'+', '-', '*'}, c;
 	int numberOfProcessors, id, to, tag = 1000;		
 	
 	MPI_Init(&argc,&argv);
@@ -30,11 +29,11 @@ int main (int argc, char **argv){
 	{	
 		case 0: //master			
 			
-			parts[3]  = atoi(argv[1]); //a
-            parts[2]  = atoi(argv[2]); //b
-            parts[1]  = atoi(argv[3]); //c
-            parts[0]  = atoi(argv[4]); //d
-            variableX = atoi(argv[5]); //x
+			parts[3]  = atof(argv[1]); //a
+            parts[2]  = atof(argv[2]); //b
+            parts[1]  = atof(argv[3]); //c
+            parts[0]  = atof(argv[4]); //d
+            variableX = atof(argv[5]); //x
 
 			for(to = 1; to < numberOfProcessors; to++) { //coefficients
 				MPI_Send(&parts[to], 1, MPI_DOUBLE, to, tag, MPI_COMM_WORLD);

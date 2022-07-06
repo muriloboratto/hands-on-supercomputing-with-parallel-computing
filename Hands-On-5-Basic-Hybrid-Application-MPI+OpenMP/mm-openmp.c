@@ -1,118 +1,67 @@
 /*
 File:           mm-openmp.c
-Purpose:        Parallelize matrix multiplication using OpenMP
-Authors:        Francisco Almeida, Domingo Giménez, José Miguel Mantas, Antonio M. Vidal
-                'Introducción a la programación paralela,
-                 Paraninfo Cengage Learning, 2008, Capítulo 6, 
-                 SSección 6.3 Paralelismo de datos: Código 6.6
-                 Multiplicación de matrices con OpenMP'
+Version:        Solution
+Purpose:        Matrix Multiply Sequential Algorithm in C using OpenMP
+Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
-HowToCompile:   gcc mm-openmp.c -o mm-openmp -fopenmp
-HowToExecute:   OMP_NUM_THREADS=<threads> ./mm-openmp <initial> <final> <increment>
-Example:        OMP_NUM_THREADS=16        ./mm-openmp  100       1000     100 
-
-Comments:
-                ◆ Spanish code comments;          
+Hotocompile:   gcc mm-openmp.c -o mm -fopenmp
+Hotoexecute:   OMP_NUM_THREADS=<threads> ./mm <size>
+               OMP_NUM_THREADS=4         ./mm  100  
 */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h>
 #include <omp.h>
 
-void multmat(double *a, double *b, double *c, int n) {
-  int i, j, k;
-  double s;
-
-//Código 6.6
-
-   #pragma omp parallel for private(i, j, k, s)
-// cada thread trabaja con un bloque de filas de la matriz a
-    for (i = 0; i < n; i++)
-        for (j = 0; j < n; j++) {
-            s = 0.;
-            for (k = 0; k < n; k++)
-                s += a[i * n + k] * b[k * n + j];
-            c[i * n + j] = s;
-        }
+void initializeMatrix(int *matrix, int size)
+{
+  for (int i = 0; i < size; i++)
+    for (int j = 0; j < size; j++)
+      matrix[i * size + j] = rand() % (10 - 1) * 1;
 }
 
-void initialize(double *m, int t) {
-  int i;
-
-  for (i = 0; i < t; i++) {
-    m[i] = i;
-  }
-}
-
-void initializealea(double *m, int t) {
-  int i;
-
-  for (i = 0; i < t; i++) {
-      m[i] = (10. * rand()) / RAND_MAX;
-  }
-}
-
-void escribir(double *m, int t) {
-  int i, j;
-
-  for (i = 0; i < t; i++) {
-    for (j = 0; j < t; j++)
-      printf("%.4lf ", m[i * t + j]);
+void printMatrix(int *matrix, int size)
+{
+  for (int i = 0; i < size; i++)
+  {
+    for (int j = 0; j < size; j++)
+      printf("%d\t", matrix[i * size + j]);
     printf("\n");
   }
   printf("\n");
 }
-/*
-c
-c     mseconds - returns elapsed microseconds since Jan 1st, 1970.
-c
-*/
-double mseconds() {
-  struct timeval t;
-  gettimeofday(&t, NULL);
-  return t.tv_sec * 1000000. + t.tv_usec;
-}
 
-int main(int argc, char *argv[]) {
-  long int t, iN, fN, incN;
-  double start, fin, tiempo;
-  double *a, *b, *c;
+int main (int argc, char **argv)
+{
 
-  iN = atoi(argv[1]);
-  fN = atoi(argv[2]);
-  incN = atoi(argv[3]);
+ int size = atoi(argv[1]);  
+ int i, j, k;
+ double t1, t2;
 
-  for(t = iN; t <= fN; t += incN) {
-    a = (double *) malloc(sizeof(double) * t * t);
-    b = (double *) malloc(sizeof(double) * t * t);
-    c = (double *) malloc(sizeof(double) * t * t);   
-    
-    initialize(a, t * t);
-    initialize(b, t * t);
-#ifdef DEBUG
-    escribir(a, t);
-    escribir(b, t);
-#endif
-    start = mseconds();
+ int  *A = (int *) malloc (sizeof(int)*size*size);
+ int  *B = (int *) malloc (sizeof(int)*size*size);
+ int  *C = (int *) malloc (sizeof(int)*size*size);
 
-    multmat(a, b , c, t);
+ initializeMatrix(A, size);
+ initializeMatrix(B, size);
 
-    fin = mseconds();
-    tiempo = (fin - start) / 1000000.;
+ t1 = omp_get_wtime();
 
-    if (tiempo == 0.) {
-      printf("[Error]\n");
-    } else {
-      printf("(%d) Threads %d, Time %.6lf\n\n",t, omp_get_num_threads(), tiempo);    
-#ifdef DEBUG
-      escribir(c, t);
-#endif    
-    }
+ #pragma omp parallel for private(i, j, k)
+   for(i = 0; i < size; i++)
+    for(j = 0; j < size; j++)
+      for(k = 0; k < size; k++)
+        C[i * size + j] += A[i * size + k] * B[k * size + j];
 
-    free(a);
-    free(b);
-    free(c);
-  }
+ t2 = omp_get_wtime();
+
+ printf("%d\t%f\n",size, t2-t1);
+
+// printMatrix(A,size);
+// printMatrix(B,size);
+// printMatrix(C,size);
+
+ return 0;
+
 }
 
