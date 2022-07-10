@@ -1,10 +1,9 @@
 /*
-File:           hands-on-5/lu.c
-Version:        1
+File:           lu_mpi.c
 Purpose:        Parallelize LU decomposition using MPI
-Author:         Murilo Boratto - muriloboratto@uneb.br
+Author:         Murilo Boratto - muriloboratto 'at' fieb.org.br
 Usage:
-HowToCompile:   mpicc -O3 -o lu_mpi lu_mpi.c
+HowToCompile:   mpicc lu_mpi.c -o lu_mpi -O3  
 HowToExecute:   mpirun -np ${number_of_processes} ./lu ${problem_size}
 Example:        mpirun -np 4 ./lu_mpi 8
 */
