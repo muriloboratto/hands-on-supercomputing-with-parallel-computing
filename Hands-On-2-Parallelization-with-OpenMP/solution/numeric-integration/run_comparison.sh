@@ -11,7 +11,7 @@ set terminal postscript eps enhanced color
 set key top left
 set key box
 set style data lines
-set title "Execution Time Variant 1"
+set title "Execution Time"
 set ylabel "Time (Seconds)"
 set output "time.eps"
 plot "time" using 1:2 title "1T" with linespoints,\
@@ -31,8 +31,8 @@ EOF
 
 printf 'Compiling and setting permissions\n\n'
 module load gcc/11.1.0
-gcc integral.c -o integral -fopenmp -lm -O3
-chmod +x integral
+gcc integral-omp.c -o integral-omp -fopenmp -lm -O3
+chmod +x integral-omp
 
 for i in {0..7}; do
     let steps=25000000+$i*25000000
@@ -40,7 +40,7 @@ for i in {0..7}; do
 
     line=$steps
     for num_threads in 1 2 4 8 16; do
-        line="${line}"$'\t'"$(OMP_NUM_THREADS=$num_threads ./integral 1 ${steps} | awk '{print $1}')"
+        line="${line}"$'\t'"$(OMP_NUM_THREADS=$num_threads ./integral-omp 1 ${steps} | awk '{print $1}')"
     done
     printf "$line\n" >>time
 done
@@ -70,6 +70,6 @@ if [[ $choice == "y" ]]; then
 fi
 
 printf "\n\nClearing temporary files\n"
-rm -f integral time speedup plot.gp
+rm -f integral-omp time speedup plot.gp
 
 printf "\nFinished\n"
