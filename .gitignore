@@ -6,6 +6,7 @@ logs
 *.log
 
 # Ignore the build directory
+.ipynb_checkpoints
 
 # The file containing environment variables 
 .env
