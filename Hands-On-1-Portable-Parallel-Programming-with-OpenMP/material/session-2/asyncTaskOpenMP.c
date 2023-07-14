@@ -52,7 +52,7 @@ int main(int argc, char **argv)
           matrix[row][column] *= k2;
     }
   
-  }
+  }/*pragma omp*/
 
   for(i = 0; i < n; i++)
   {

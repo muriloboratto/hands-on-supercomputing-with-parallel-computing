@@ -2,11 +2,10 @@
 File:           big_prime.c
 Last changed:   20220303 11:35:00
 Purpose:        Parallelize finding the biggest 128 bit prime number using openMP
-Author:         Murilo Boratto - muriloboratto@uneb.br
+Author:         muriloboratto 'at' fieb.org.br
 Usage:
-HowToCompile:   gcc big_prime.c -o big_prime -fopenmp -lm
-HowToExecute:   OMP_NUM_THREADS=${num_threads} ./big_prime
-                OMP_NUM_THREADS=4              ./big_prime
+HowToCompile:   gcc big_prime.c -o big_prime -lm
+HowToExecute:   ./big_prime
 */
 
 #include <stdio.h>

@@ -2,11 +2,10 @@
 File:           count_primes.c
 Last changed:   20220303 11:35:00
 Purpose:        Parallelize counting of prime numbers using openMP
-Author:         Murilo Boratto - muriloboratto@uneb.br
+Author:         muriloboratto 'at' fieb.org.br
 Usage:
-HowToCompile:   gcc count_primes.c -o count_primes -fopenmp -lm
-HowToExecute:   OMP_NUM_THREADS=${num_threads} ./count_primes
-                OMP_NUM_THREADS=4              ./count_primes
+HowToCompile:   gcc count_primes.c -o count_primes  -lm
+HowToExecute:   ./count_primes
 */
 
 #include <stdio.h>

@@ -6,7 +6,7 @@ Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc mm.c -o mm -fopenmp
 HowToExecute:   ./mm    <size> 
-                ./mm      100           
+                ./mm     100           
 */
 
 #include <stdio.h>
@@ -14,16 +14,16 @@ HowToExecute:   ./mm    <size>
 
 void initializeMatrix(int *matrix, int size)
 {
-  for (int i = 0; i < size; i++)
-    for (int j = 0; j < size; j++)
+  for(int i = 0; i < size; i++)
+    for(int j = 0; j < size; j++)
       matrix[i * size + j] = rand() % (10 - 1) * 1;
 }
 
 void printMatrix(int *matrix, int size)
 {
-  for (int i = 0; i < size; i++)
+  for(int i = 0; i < size; i++)
   {
-    for (int j = 0; j < size; j++)
+    for(int j = 0; j < size; j++)
       printf("%d\t", matrix[i * size + j]);
     printf("\n");
   }

@@ -107,7 +107,8 @@ void comparar(double *m1,int fm1,int cm1,int ldm1,double *m2,int fm2,int cm2,int
     }
 }
 
-int main(int argc,char *argv[]) {
+int main(int argc,char *argv[]) 
+{
   int nodo,np,i, j,fa,fal,ca,lda,fb,cb,ldb,fc,fcl,cc,ldc,N,NUMTHREADS;
   int long_name;
   double ti,tf;

@@ -12,7 +12,7 @@ HowToExecute:   mpirun -np <numberOfProcesses> ./mm-mpi <size>
 Example:        mpirun -np     4               ./mm-mpi  100
 
 Comments:
-                ◆ Spanish code comments;          
+                ◆ Spanish contents;          
 */
 
 #include <stdio.h>
@@ -20,9 +20,6 @@ Comments:
 #include <sys/time.h>
 #include <mpi.h>
 
-// multiplicación de matrices secuencial
-// por cada matriz aparece la zona de datos (a, b y c)
-// y el número de filas, de columnas y el leading dimension
 void mms(double *a, int fa, int ca, int lda, double *b, int fb, int cb, int ldb, double *c, int fc, int cc, int ldc) {
     int i, j, k;
     double s;
@@ -35,8 +32,6 @@ void mms(double *a, int fa, int ca, int lda, double *b, int fb, int cb, int ldb,
         }
 }
 
-// nodo es un identificador del proceso
-// y np el número total de procesos
 void mm(double *a, int fa, int ca, int lda, double *b, int fb, int cb, int ldb, double *c, int fc, int cc, int ldc, int nodo, int np) {
     int i, j, k;
     double s;
@@ -119,11 +114,11 @@ int main(int argc, char *argv[]) {
   MPI_Comm_rank(MPI_COMM_WORLD, &nodo);
   MPI_Get_processor_name(nombre_procesador, &long_name);
 
-// Se ejecuta con mpirun -np numeroprocesos ejecutable tamañomatriz
 
   if (nodo == 0) {
     N = atoi(argv[1]);
   }
+
   MPI_Bcast(&N, 1, MPI_INT, 0, MPI_COMM_WORLD);
   
   fa = ca = lda = fb = cb = ldb = fc = cc = ldc = N;
@@ -156,7 +151,7 @@ int main(int argc, char *argv[]) {
   MPI_Barrier(MPI_COMM_WORLD);
   tf = MPI_Wtime();
   if (nodo == 0) {
-    //printf("(%d) Process %d, %s, Time %.6lf\n", N, np, nombre_procesador, tf - ti);
+    printf("(%d) Process %d, %s, Time %.6lf\n", N, np, nombre_procesador, tf - ti);
     printf("%d\t%f\n", N, tf - ti);  
   }
   

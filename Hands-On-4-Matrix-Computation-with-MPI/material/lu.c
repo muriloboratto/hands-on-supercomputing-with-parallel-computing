@@ -141,4 +141,6 @@ int main(int argc, char **argv)
     print_array(Y, size);
     printf("X\n");
     print_array(X, size);
+
+    return 0;
 }

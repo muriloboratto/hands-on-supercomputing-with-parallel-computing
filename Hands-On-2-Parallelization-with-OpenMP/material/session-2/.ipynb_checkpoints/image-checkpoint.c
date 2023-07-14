@@ -2,7 +2,7 @@
 File:           image.c
 Last changed:   20220303 11:35:00 
 Purpose:        Parallelize image filtering using openMP
-Author:         muriloboratto 'at' fieb.org.br
+Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
 Usage:
 HowToCompile:   gcc image.c -o image -fopenmp
 HowToExecute:   OMP_NUM_THREADS=${num_threads} ./image

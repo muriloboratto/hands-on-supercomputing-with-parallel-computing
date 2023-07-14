@@ -2,7 +2,7 @@
 File:           integral.c
 Last changed:   20220303 11:35:00 
 Purpose:        Sequential integral calculation
-Author:         Murilo Boratto  <muriloboratto 'at' fieb.org.br>
+Author:         muriloboratto 'at' fieb.org.br
 Usage:
 HowToCompile:   gcc integral.c -o integral -fopenmp -lm
 HowToExecute:   OMP_NUM_THREADS=${num_threads} ./integral ${steps}
