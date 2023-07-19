@@ -15,6 +15,23 @@ HowToExecute:   mpirun -np 4 ./tridiagonal
 
 #define ORDER 4
 
+void generateTridiagonalMatrix (int origin[][ORDER]) {
+	
+	        for (int i = 0; i < ORDER; i++) {
+				for (int j = 0; j < ORDER; j++) {
+					if (i == j)
+						origin[i][j] = i + j + 1;
+					else if (i == (j + 1)) {
+						origin[i][j] = i + j + 1;
+						origin[j][i] = origin[i][j];
+					}
+					else
+						origin[i][j] = 0;
+				}
+			}
+	
+}
+
 void printMatrix (int m[][ORDER]) {
 	int i, j;
 	
@@ -44,19 +61,9 @@ int main (int argc, char **argv){
 	switch(id)
 	{	
 		case 0:	/* master */	
-			for (i = 0; i < ORDER; i++) {
-				for (j = 0; j < ORDER; j++) {
-					if (i == j)
-						origin[i][j] = i + j + 1;
-					else if (i == (j + 1)) {
-						origin[i][j] = i + j + 1;
-						origin[j][i] = origin[i][j];
-					}
-					else
-						origin[i][j] = 0;
-				}
-			}
 			
+			generateTridiagonalMatrix (origin);
+
 			printMatrix(origin);
 			
 			for (to = 1; to < numberOfProcessors; to++) {
@@ -89,5 +96,6 @@ int main (int argc, char **argv){
 	}
 	
 	MPI_Finalize();
+	
 	return 0;
 }
