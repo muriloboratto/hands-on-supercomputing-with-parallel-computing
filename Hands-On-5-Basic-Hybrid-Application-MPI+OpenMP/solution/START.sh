@@ -50,9 +50,9 @@ set style data lines
 
 
 plot "file_comparison.data" using 1:2 title "Sequential"              ls 1 with linespoints,\
-     "file_comparison.data" using 1:3 title "OMP(T=8)"                ls 2 with linespoints,\
-     "file_comparison.data" using 1:4 title "MPI(P=6)"                ls 3 with linespoints,\
-     "file_comparison.data" using 1:5 title "MPI+OMP(P=4, T=6)"       ls 4 with linespoints
+     "file_comparison.data" using 1:3 title "OMP(T=32)"                ls 2 with linespoints,\
+     "file_comparison.data" using 1:4 title "MPI(P=36)"                ls 3 with linespoints,\
+     "file_comparison.data" using 1:5 title "MPI+OMP(P=14, T=32)"       ls 4 with linespoints
 EOF
 }
 
@@ -87,12 +87,10 @@ EOF
 # 0. COMPILATION + PERMISSIONS  TO EXECUTE     #
 ################################################
 
-gcc mm-openmp.c -o sequential -fopenmp
-gcc mm-openmp.c -o mm-openmp  -fopenmp -O3
-mpicc mm-mpi.c -o mm-mpi -O3
-mpicc mm-mpi+openmp.c -o mm-mpi+openmp -fopenmp -O3
+gcc mm-openmp.c -o mm-openmp  -fopenmp 
+mpicc mm-mpi.c -o mm-mpi 
+mpicc mm-mpi+openmp.c -o mm-mpi+openmp -fopenmp 
 
-chmod +x sequential
 chmod +x mm-openmp
 chmod +x mm-mpi
 chmod +x mm-mpi+openmp
@@ -110,9 +108,9 @@ for i in 100 200 300 400 500 600 700 800 900 1000
 do
 printf "\033[1D$i :" 
 OMP_NUM_THREADS=1       ./mm-openmp        "$i"     >> file1
-OMP_NUM_THREADS=16      ./mm-openmp        "$i"     >> file2
+OMP_NUM_THREADS=32      ./mm-openmp        "$i"     >> file2
       mpirun  -np 36    ./mm-mpi           "$i"     2>/dev/null   >> file3
-      mpirun  -np 32    ./mm-mpi+openmp    "$i"  12 2>/dev/null   >> file4
+      mpirun  -np 32    ./mm-mpi+openmp    "$i"  14 2>/dev/null   >> file4
 done
 
 clear 
@@ -176,7 +174,7 @@ sleep 1
 
 echo " "
 echo "[Remove unnecessary files] "
-#rm -f *.txt file* fspeed* *.data mpi mm-mpi mm-openmp mm-mpi+openmp sequential *.plt
+rm -f *.txt file* fspeed* *.data mpi mm-mpi mm-openmp mm-mpi+openmp sequential *.plt
 echo " "
 
 sleep 7 > /dev/null 2>&1 &
