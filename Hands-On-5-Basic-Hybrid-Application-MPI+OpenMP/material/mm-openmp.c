@@ -61,6 +61,10 @@ int main (int argc, char **argv)
 // printMatrix(B,size);
 // printMatrix(C,size);
 
+ free(A);
+ free(B);
+ free(C);
+ 
  return 0;
 
 }
